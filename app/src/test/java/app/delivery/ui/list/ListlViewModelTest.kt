@@ -39,9 +39,9 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
     lateinit var appRepository: NetworkRepository
     @Mock
     lateinit var listResult: LiveData<PagedList<DeliveriesData>>
-    lateinit var mockServer: MockWebServer
-    lateinit var apiInterface: ApiInterface
-    lateinit var randomData: DeliveriesData
+    private lateinit var mockServer: MockWebServer
+    private lateinit var apiInterface: ApiInterface
+    private lateinit var randomData: DeliveriesData
 
     override fun createViewModel(): ListViewModel {
         MockitoAnnotations.initMocks(this)
@@ -101,16 +101,16 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
         Assert.assertTrue(mockPagedList.size == listData.size)
     }
 
-    fun mockPagedList(list: List<DeliveriesData>): PagedList<DeliveriesData> {
+    private fun mockPagedList(list: List<DeliveriesData>): PagedList<DeliveriesData> {
         val pagedList = mock<PagedList<DeliveriesData>>()
-        Mockito.`when`(pagedList.get(any())).then { list[it.arguments.first() as Int] }
+        Mockito.`when`(pagedList[any()]).then { list[it.arguments.first() as Int] }
         Mockito.`when`(pagedList.size).thenReturn(list.size)
         return pagedList
     }
 
     @Test
     fun resetData() {
-        Mockito.`when`(appRepository.getDataFromApi(0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(true,0)).then { mockResponseList() }
         data.resetData()
         Assert.assertNotNull(data.mResult?.data?.value)
         Assert.assertTrue(data.mResult?.data?.value?.size!! > 0)
@@ -119,7 +119,7 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
 
     @Test
     fun retry() {
-        Mockito.`when`(appRepository.getDataFromApi(0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(false,0)).then { mockResponseList() }
         data.retry()
         Assert.assertNotNull(data.mResult?.data?.value)
         Assert.assertTrue(data.mResult?.data?.value?.size!! > 0)
@@ -129,14 +129,14 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
     @Test
     fun retry_withExisting_data() {
         mockResponseList()
-        Mockito.`when`(appRepository.getDataFromApi(0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(false,0)).then { mockResponseList() }
         data.retry()
         Assert.assertNotNull(data.mResult?.data?.value)
         Assert.assertTrue(data.mResult?.data?.value?.size!! > 0)
         Assert.assertEquals(data.mResult?.data?.value?.last()?.id, randomData.id)
     }
 
-    fun mockResponseList() {
+    private fun mockResponseList() {
         val listResponse = TestUtil.getData(0, BuildConfig.NETWORK_PAGE_SIZE)
         randomData = listResponse.last()
         mockServer.enqueue(MockResponse().setBody(Gson().toJson(listResponse)))

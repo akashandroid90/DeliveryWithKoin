@@ -8,7 +8,7 @@ import app.delivery.model.DataResult
 import app.delivery.repository.network.NetworkRepository
 
 
-class ListViewModel (
+class ListViewModel(
     private val deliveriesDao: DeliveriesDao,
     private val boundryCallBack: DeliveryBoundryCallBack,
     private val appRepository: NetworkRepository
@@ -19,7 +19,7 @@ class ListViewModel (
         initialize()
     }
 
-    fun initialize() {
+    private fun initialize() {
         mResult = DataResult()
         mResult?.data = deliveriesDao.getAllDelieveries()
             .toLiveData(BuildConfig.PAGE_SIZE, BuildConfig.PAGE_PREFETCH_DISTANCE, boundryCallBack)
@@ -32,7 +32,7 @@ class ListViewModel (
     }
 
     fun resetData() {
-        appRepository.getDataFromApi(0)
+        appRepository.getDataFromApi(true,0)
     }
 
     fun retry() {
@@ -42,7 +42,7 @@ class ListViewModel (
             if (data != null)
                 value = data.id + 1
         }
-        appRepository.getDataFromApi(value)
+        appRepository.getDataFromApi(false,value)
     }
 
     override fun onCleared() {

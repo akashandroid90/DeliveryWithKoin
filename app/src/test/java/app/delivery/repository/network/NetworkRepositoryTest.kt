@@ -43,12 +43,12 @@ class NetworkRepositoryTest {
 
     @Test
     fun getDataFromApi() {
-        Mockito.`when`(network.getDataFromApi(0)).then { apiCallData() }
-        network.getDataFromApi(0)
+        Mockito.`when`(network.getDataFromApi(true,0)).then { apiCallData() }
+        network.getDataFromApi(true,0)
         Assert.assertTrue(!deliveries.getDelieveries().isNullOrEmpty())
     }
 
-    fun apiCallData() {
+    private fun apiCallData() {
         mockServer.enqueue(MockResponse().setBody(TestUtil.getDataAsString()))
         val list = apiInterface.getList(0, BuildConfig.NETWORK_PAGE_SIZE)
         val execute = list.execute()

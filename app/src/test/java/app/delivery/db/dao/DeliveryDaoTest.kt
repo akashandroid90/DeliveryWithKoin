@@ -55,6 +55,13 @@ class DeliveryDaoTest {
 
     @Test
     @Throws(Exception::class)
+    fun deleteByIdCondition() {
+        Mockito.doReturn(BuildConfig.NETWORK_PAGE_SIZE).`when`(deliveryDao).deleteByIdCondition(BuildConfig.NETWORK_PAGE_SIZE)
+        Assert.assertTrue(deliveryDao.deleteByIdCondition(BuildConfig.NETWORK_PAGE_SIZE) > 0)
+    }
+
+    @Test
+    @Throws(Exception::class)
     fun queryData() {
         val data = TestUtil.getData(0, BuildConfig.NETWORK_PAGE_SIZE)
         Mockito.doReturn(data).`when`(deliveryDao).getDelieveries()

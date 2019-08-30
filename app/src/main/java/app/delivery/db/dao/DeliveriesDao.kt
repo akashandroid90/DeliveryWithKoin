@@ -33,6 +33,9 @@ interface DeliveriesDao {
     @Query("DELETE FROM delivery_table")
     fun deleteAll(): Int
 
+    @Query("DELETE FROM delivery_table where id>:id")
+    fun deleteByIdCondition(id:Int):Int
+
     @Query("SELECT count(*) from delivery_table")
     fun getCount(): Int
 }

@@ -27,7 +27,7 @@ open class NetworkRepository (
     /**
      *  Fetch delivery data from network and pass to {@link DbRepository} to perform database operations
      */
-    open fun getDataFromApi(offset: Int) {
+    open fun getDataFromApi(isReset:Boolean,offset: Int) {
         if (isRequestInProgress) return
         if (networkConnectionUtil.isInternetAvailable(context)) {
             isRequestInProgress = true
@@ -42,7 +42,7 @@ open class NetworkRepository (
                     if (response.isSuccessful) {
                         val body = response.body()
                         if (body is ArrayList<DeliveriesData> && body.size > 0)
-                            dbRepo.insertDeliveryData(body)
+                            dbRepo.insertDeliveryData(isReset,body)
                     } else {
                         result?.dataState?.value = DataState.NETWORKERROR
                         result?.errorMessage?.value = response.errorBody()?.string()

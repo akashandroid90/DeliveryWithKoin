@@ -27,14 +27,14 @@ class MockNetworkRepository @Inject constructor(
     val idleStateResource: IdlingResourceCallback
 ) : NetworkRepository(dbRepo, context, connection, networkConnectionUtil) {
 
-    override fun getDataFromApi(offset: Int) {
+    override fun getDataFromApi(isReset:Boolean,offset: Int) {
         server.enqueue(MockResponse().setBody(TestUtil.getDataAsString()))
         val list = connection.getList(offset, offset + BuildConfig.NETWORK_PAGE_SIZE)
         idleStateResource.setState(false)
         thread.networkThread.execute {
             val execute = list.execute()
             val body = execute.body()
-            dbRepo.insertDeliveryData(body as List<DeliveriesData>)
+            dbRepo.insertDeliveryData(isReset,body as List<DeliveriesData>)
             handler.postDelayed({
                 idleStateResource.setState(true)
             }, 3000)

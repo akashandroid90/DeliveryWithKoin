@@ -11,9 +11,12 @@ class DbRepository (
     private val service: ExecutorService,
     private val deliveriesDao: DeliveriesDao
 ) {
-    fun insertDeliveryData(list: List<DeliveriesData>) {
+    fun insertDeliveryData(isReset:Boolean,list: List<DeliveriesData>) {
         service.execute {
             deliveriesDao.insertAll(list)
+            if (isReset){
+                deliveriesDao.deleteByIdCondition(list.last().id)
+            }
         }
     }
 

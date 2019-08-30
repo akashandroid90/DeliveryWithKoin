@@ -62,6 +62,13 @@ class DeliveriesDaoTest {
         deliveryDao.insertAll(data)
         Assert.assertTrue(deliveryDao.getCount() > 0)
     }
+    @Test
+    @Throws(Exception::class)
+    fun deleteByIdCondition() {
+        val data = TestUtil.getData(0, BuildConfig.NETWORK_PAGE_SIZE)
+        deliveryDao.insertAll(data)
+        Assert.assertTrue(deliveryDao.deleteByIdCondition(data.first().id) > 0)
+    }
 
     @Test
     @Throws(Exception::class)
