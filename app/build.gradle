@@ -1,0 +1,137 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion "29.0.2"
+    signingConfigs {
+        config {
+            keyAlias 'delivery'
+            keyPassword 'delivery'
+            storeFile file(rootProject.file('keystore.jks'))
+            storePassword 'delivery'
+        }
+    }
+    defaultConfig {
+        applicationId "app.delivery"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        resConfigs "en"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "app.delivery.runner.MockRunner"
+
+        buildConfigField "String", "BASE_URL", '"https://mock-api-mobile.dev.lalamove.com"'
+        buildConfigField "int", "NETWORK_PAGE_SIZE", '20'
+        buildConfigField "int", "PAGE_SIZE", '20'
+        buildConfigField "int", "PAGE_PREFETCH_DISTANCE", '10'
+        buildConfigField "int", "DB_VERSION", '1'
+        resValue 'string', 'google_maps_key', 'AIzaSyC4Q59oYLq3zhG_14XiKtxPjqnXUGErFiQ'
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            debuggable = true
+        }
+        debug {
+            applicationIdSuffix = '.demo'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    sourceSets { debug { java.srcDirs = ['src/debug/java', 'src/commonTest'] } }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:' + appcompact
+    implementation 'androidx.core:core-ktx:' + appcompact
+    implementation 'androidx.constraintlayout:constraintlayout:' + constraintlayout
+    implementation 'com.google.android.gms:play-services-maps:' + googlemap
+
+    implementation 'com.squareup.retrofit2:retrofit:' + rootProject.retrofitVersion
+    implementation 'com.squareup.okhttp3:logging-interceptor:' + httpLogger
+    implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersion
+
+    // ViewModel and LiveData
+    implementation 'androidx.lifecycle:lifecycle-extensions:' + lifecycle_version
+    kapt 'androidx.lifecycle:lifecycle-compiler:' + lifecycle_version
+
+    // Room components
+    implementation "androidx.room:room-runtime:$rootProject.archRoomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.archRoomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.archRoomVersion"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.archRoomVersion"
+
+    implementation 'com.intuit.sdp:sdp-android:' + rootProject.dimensVersion
+    implementation 'com.intuit.ssp:ssp-android:' + rootProject.dimensVersion
+
+    kapt 'androidx.databinding:databinding-compiler:' + databinding_compiler_version
+    implementation 'androidx.paging:paging-runtime:' + pagingVersion
+    implementation 'androidx.paging:paging-runtime-ktx:' + pagingVersion
+
+    debugImplementation 'com.amitshekhar.android:debug-db:' + dbDebugger
+
+    implementation 'io.coil-kt:coil:' + coil
+    implementation 'com.google.android.material:material:' + material
+
+    // Testing module
+    //Mockito
+//    androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:' + mockito_kotlin
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:' + mockito_kotlin
+//    testImplementation 'io.mockk:mockk:' + mockk
+//    androidTestImplementation 'io.mockk:mockk-android:' + mockk
+    testImplementation 'org.mockito:mockito-core:' + mockito
+    androidTestImplementation 'org.mockito:mockito-android:' + mockito
+//    androidTestImplementation 'com.squareup.okhttp:mockwebserver:' + mockitowebserver
+    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:' + mockitowebserver
+    testImplementation 'com.squareup.okhttp3:mockwebserver:' + mockitowebserver
+    implementation 'androidx.test.espresso:espresso-idling-resource:' + espresso
+    // optional - Test helpers for LiveData
+    testImplementation 'androidx.arch.core:core-testing:' + lifecycle_version
+    androidTestImplementation 'androidx.arch.core:core-testing:' + lifecycle_version
+    testImplementation 'org.mockito:mockito-inline:' + mockito
+//    androidTestImplementation 'org.mockito:mockito-inline:' + mockito
+
+    testImplementation 'junit:junit:' + junit
+    androidTestImplementation 'androidx.test.ext:junit:' + ext_junit
+    androidTestImplementation 'androidx.test:runner:' + testRunner
+    androidTestImplementation 'androidx.test.espresso:espresso-core:' + espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:' + espresso
+//    // synchronizing back ground task
+//    androidTestImplementation 'androidx.test.espresso:espresso-idling-resources:' + espresso
+    // validating or subbing intents
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:' + espresso
+
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Koin for Android
+    implementation 'org.koin:koin-android:' + koin_version
+    // or Koin for Lifecycle scoping
+    implementation 'org.koin:koin-androidx-scope:' + koin_version
+    // or Koin for Android Architecture ViewModel
+    implementation 'org.koin:koin-androidx-viewmodel:' + koin_version
+}

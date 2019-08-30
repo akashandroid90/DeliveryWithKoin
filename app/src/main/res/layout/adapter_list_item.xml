@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="data"
+                type="app.delivery.model.DeliveriesData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aiv_image"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:scaleType="fitXY"
+                app:imageUrl='@{data.imageUrl ?? ""}'
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@mipmap/ic_launcher" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aiv_arrow"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_16ssp"
+                app:deliveriesData="@{data}"
+                app:layout_constraintBottom_toBottomOf="@id/aiv_image"
+                app:layout_constraintEnd_toStartOf="@id/aiv_arrow"
+                app:layout_constraintStart_toEndOf="@id/aiv_image"
+                app:layout_constraintTop_toTopOf="@id/aiv_image"
+                tools:text="@string/app_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
