@@ -32,7 +32,7 @@ class ListViewModel(
     }
 
     fun resetData() {
-        appRepository.getDataFromApi(true,0)
+        appRepository.getDataFromApi(true, 0)
     }
 
     fun retry() {
@@ -42,7 +42,7 @@ class ListViewModel(
             if (data != null)
                 value = data.id + 1
         }
-        appRepository.getDataFromApi(false,value)
+        appRepository.getDataFromApi(false, value)
     }
 
     override fun onCleared() {

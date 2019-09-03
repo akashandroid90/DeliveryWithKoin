@@ -1,30 +1,28 @@
 package app.delivery
 
 import android.app.Application
-import android.os.Handler
-import app.delivery.di.component.DaggerMockAppComponent
-import app.delivery.di.module.AppModule
-import app.delivery.utils.resourceState.DataIdleStateResource
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import app.delivery.di.module.mockAppModule
+import app.delivery.di.module.mockDbModule
+import app.delivery.di.module.mockNetworkModule
+import app.delivery.di.module.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-class MockApplication : Application(), HasAndroidInjector {
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Any>
-
-    @Inject
-    lateinit var idleStateResource: DataIdleStateResource
-    @Inject
-    lateinit var handler: Handler
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return activityInjector
-    }
+class MockApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerMockAppComponent.builder().appModule(AppModule(this)).build().inject(this)
+//        loadKoinModules(mockDbModule)
+//        loadKoinModules(mockNetworkModule)
+        startKoin {
+            if (BuildConfig.DEBUG)
+                androidLogger()
+            androidContext(this@MockApplication)
+            modules(mockAppModule)
+            modules(mockDbModule)
+            modules(mockNetworkModule)
+            modules(viewModelModule)
+        }
     }
 }

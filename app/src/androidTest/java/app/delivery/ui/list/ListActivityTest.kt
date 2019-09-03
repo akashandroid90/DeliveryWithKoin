@@ -39,7 +39,6 @@ class ListActivityTest : AbstractBaseActivityTest<ListActivity>(ListActivity::cl
     @Test
     fun testListItemClick() {
         val launchActivity = launchActivity()
-        releaseResource()
         EspressoTestUtil.disableAnimationOnView(launchActivity.findViewById(R.id.rv_list))
         val action = RecyclerViewActions.actionOnItemAtPosition<ListViewHolder>(
             BuildConfig.PAGE_PREFETCH_DISTANCE,

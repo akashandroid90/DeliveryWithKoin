@@ -43,8 +43,8 @@ class NetworkRepositoryTest {
 
     @Test
     fun getDataFromApi() {
-        Mockito.`when`(network.getDataFromApi(true,0)).then { apiCallData() }
-        network.getDataFromApi(true,0)
+        Mockito.`when`(network.getDataFromApi(true, 0)).then { apiCallData() }
+        network.getDataFromApi(true, 0)
         Assert.assertTrue(!deliveries.getDelieveries().isNullOrEmpty())
     }
 

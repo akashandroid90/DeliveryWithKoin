@@ -1,13 +1,11 @@
 package app.delivery.ui.list
 
 import android.os.Bundle
-import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.test.espresso.IdlingResource
 import app.delivery.R
 import app.delivery.constants.DataState
 import app.delivery.databinding.ActivityListBinding
@@ -24,6 +22,7 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>() {
     override fun getModel(): ListViewModel {
         return getViewModel()
     }
+
     override fun getLayoutId(): Int {
         return R.layout.activity_list
     }

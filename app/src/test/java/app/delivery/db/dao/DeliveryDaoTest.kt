@@ -56,7 +56,8 @@ class DeliveryDaoTest {
     @Test
     @Throws(Exception::class)
     fun deleteByIdCondition() {
-        Mockito.doReturn(BuildConfig.NETWORK_PAGE_SIZE).`when`(deliveryDao).deleteByIdCondition(BuildConfig.NETWORK_PAGE_SIZE)
+        Mockito.doReturn(BuildConfig.NETWORK_PAGE_SIZE).`when`(deliveryDao)
+            .deleteByIdCondition(BuildConfig.NETWORK_PAGE_SIZE)
         Assert.assertTrue(deliveryDao.deleteByIdCondition(BuildConfig.NETWORK_PAGE_SIZE) > 0)
     }
 

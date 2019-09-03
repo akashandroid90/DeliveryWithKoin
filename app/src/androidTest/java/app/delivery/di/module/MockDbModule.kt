@@ -1,39 +1,21 @@
 package app.delivery.di.module
 
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import app.delivery.db.MockAppDataBase
-import app.delivery.db.dao.DeliveriesDao
 import app.delivery.model.ThreadModel
 import app.delivery.repository.database.DbRepository
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-
-@Module
-class MockDbModule {
-    @Provides
-    @Singleton
-    fun provideDatabase(): MockAppDataBase {
-        return Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
+val mockDbModule = module {
+    single {
+        Room.inMemoryDatabaseBuilder(
+            androidContext(),
             MockAppDataBase::class.java
-        ).build()
+        ).build().deliveriesDao()
     }
-
-    @Provides
-    @Singleton
-    fun provideDeliveriesDao(database: MockAppDataBase): DeliveriesDao {
-        return database.deliveriesDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppRepository(
-        thread: ThreadModel,
-        deliveriesDao: DeliveriesDao
-    ): DbRepository {
-        return DbRepository(thread.dbThread, deliveriesDao)
+    single {
+        val thread: ThreadModel = get()
+        DbRepository(thread.dbThread, get())
     }
 }

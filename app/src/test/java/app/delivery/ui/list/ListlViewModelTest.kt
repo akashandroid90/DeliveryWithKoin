@@ -110,7 +110,7 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
 
     @Test
     fun resetData() {
-        Mockito.`when`(appRepository.getDataFromApi(true,0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(true, 0)).then { mockResponseList() }
         data.resetData()
         Assert.assertNotNull(data.mResult?.data?.value)
         Assert.assertTrue(data.mResult?.data?.value?.size!! > 0)
@@ -119,7 +119,7 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
 
     @Test
     fun retry() {
-        Mockito.`when`(appRepository.getDataFromApi(false,0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(false, 0)).then { mockResponseList() }
         data.retry()
         Assert.assertNotNull(data.mResult?.data?.value)
         Assert.assertTrue(data.mResult?.data?.value?.size!! > 0)
@@ -129,7 +129,7 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
     @Test
     fun retry_withExisting_data() {
         mockResponseList()
-        Mockito.`when`(appRepository.getDataFromApi(false,0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(false, 0)).then { mockResponseList() }
         data.retry()
         Assert.assertNotNull(data.mResult?.data?.value)
         Assert.assertTrue(data.mResult?.data?.value?.size!! > 0)

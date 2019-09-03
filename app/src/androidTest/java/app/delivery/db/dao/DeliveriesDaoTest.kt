@@ -1,34 +1,14 @@
 package app.delivery.db.dao
 
 import TestUtil
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import app.delivery.BuildConfig
-import app.delivery.db.MockAppDataBase
-import org.junit.After
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
-import java.io.IOException
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
-class DeliveriesDaoTest {
-    private lateinit var deliveryDao: DeliveriesDao
-    private lateinit var database: MockAppDataBase
-
-    @Before
-    fun setup() {
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            MockAppDataBase::class.java
-        ).build()
-        deliveryDao = database.deliveriesDao()
-    }
-
-    @After
-    @Throws(IOException::class)
-    fun after() {
-        database.close()
-    }
+class DeliveriesDaoTest : KoinTest {
+    private val deliveryDao: DeliveriesDao by inject()
 
     @Test
     @Throws(Exception::class)
@@ -62,6 +42,7 @@ class DeliveriesDaoTest {
         deliveryDao.insertAll(data)
         Assert.assertTrue(deliveryDao.getCount() > 0)
     }
+
     @Test
     @Throws(Exception::class)
     fun deleteByIdCondition() {

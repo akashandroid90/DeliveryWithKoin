@@ -15,7 +15,7 @@ import app.delivery.model.DeliveriesData
 import app.delivery.ui.detail.DetailActivity
 
 
-class ListAdapter (private val inflater: LayoutInflater) :
+class ListAdapter(private val inflater: LayoutInflater) :
     PagedListAdapter<DeliveriesData, RecyclerView.ViewHolder>(COMPARATOR), View.OnClickListener {
     private var dataState: DataState? = null
     private val LISTVIEW = 1

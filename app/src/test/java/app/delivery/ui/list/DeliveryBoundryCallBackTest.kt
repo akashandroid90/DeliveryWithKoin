@@ -50,7 +50,7 @@ class DeliveryBoundryCallBackTest {
 
     @Test
     fun onZeroItemsLoaded() {
-        Mockito.`when`(appRepository.getDataFromApi(true,0)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(true, 0)).then { mockResponseList() }
         boundryCallBack.onZeroItemsLoaded()
         val delieveries = deliveriesDao.getDelieveries()
         Assert.assertNotNull(delieveries)
@@ -60,7 +60,8 @@ class DeliveryBoundryCallBackTest {
     @Test
     fun onItemAtEndLoaded() {
         val randomData = TestUtil.getRandomData()
-        Mockito.`when`(appRepository.getDataFromApi(false,randomData.id + 1)).then { mockResponseList() }
+        Mockito.`when`(appRepository.getDataFromApi(false, randomData.id + 1))
+            .then { mockResponseList() }
         boundryCallBack.onItemAtEndLoaded(randomData)
         val delieveries = deliveriesDao.getDelieveries()
         Assert.assertNotNull(delieveries)

@@ -23,6 +23,7 @@ android {
         resConfigs "en"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "app.delivery.runner.MockRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", '"https://mock-api-mobile.dev.lalamove.com"'
         buildConfigField "int", "NETWORK_PAGE_SIZE", '20'
@@ -84,6 +85,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$rootProject.archRoomVersion"
     implementation "androidx.room:room-ktx:$rootProject.archRoomVersion"
     kapt "androidx.room:room-compiler:$rootProject.archRoomVersion"
+    kaptAndroidTest "androidx.room:room-compiler:$rootProject.archRoomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.archRoomVersion"
 
     implementation 'com.intuit.sdp:sdp-android:' + rootProject.dimensVersion
@@ -134,4 +136,7 @@ dependencies {
     implementation 'org.koin:koin-androidx-scope:' + koin_version
     // or Koin for Android Architecture ViewModel
     implementation 'org.koin:koin-androidx-viewmodel:' + koin_version
+    androidTestImplementation ("org.koin:koin-test:" + koin_version){
+        exclude group: 'org.mockito'
+    }
 }

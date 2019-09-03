@@ -21,17 +21,17 @@ val networkModule = module {
     single {
         val thread: ThreadModel = get()
         val okHttpClientBuilder = OkHttpClient().newBuilder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .addInterceptor { chain ->
-                    val original = chain.request()
-                    val request = original.newBuilder()
-                            .method(original.method(), original.body())
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val request = original.newBuilder()
+                    .method(original.method(), original.body())
 //                            .addHeader("Authorization", mAuth)
-                            .build()
-                    chain.proceed(request)
-                }.dispatcher(Dispatcher(thread.networkThread))
+                    .build()
+                chain.proceed(request)
+            }.dispatcher(Dispatcher(thread.networkThread))
 
         if (BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor()
@@ -41,10 +41,10 @@ val networkModule = module {
         val build = okHttpClientBuilder.build()
 
         Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-                .client(build)
-                .build().create(ApiInterface::class.java)
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(build)
+            .build().create(ApiInterface::class.java)
     }
 
     single { NetworkRepository(get(), get(), get(), get()) }
