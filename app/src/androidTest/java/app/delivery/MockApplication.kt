@@ -13,8 +13,6 @@ class MockApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        loadKoinModules(mockDbModule)
-//        loadKoinModules(mockNetworkModule)
         startKoin {
             if (BuildConfig.DEBUG)
                 androidLogger()

@@ -23,8 +23,8 @@ class MockNetworkRepository @Inject constructor(
     private val server: MockWebServer,
     private val thread: ThreadModel,
     networkConnectionUtil: NetworkConnectionUtil,
-    val handler: Handler,
-    val idleStateResource: DataIdleStateResource
+    private val handler: Handler,
+    private val idleStateResource: DataIdleStateResource
 ) : NetworkRepository(dbRepo, context, connection, networkConnectionUtil) {
 
     override fun getDataFromApi(isReset: Boolean, offset: Int) {

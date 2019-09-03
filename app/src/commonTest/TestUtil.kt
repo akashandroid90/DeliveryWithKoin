@@ -5,17 +5,16 @@ import java.io.BufferedReader
 object TestUtil {
 
     fun getDataAsString(): String {
-        val inputStream = javaClass.classLoader?.getResourceAsStream("api-responses/responsedata.json")
+        val inputStream =
+            javaClass.classLoader?.getResourceAsStream("api-responses/responsedata.json")
         val reader = BufferedReader(inputStream?.reader())
         val content = StringBuilder()
-        try {
+        reader.use {
             var line = reader.readLine()
             while (line != null) {
                 content.append(line)
                 line = reader.readLine()
             }
-        } finally {
-            reader.close()
         }
         return content.toString()
     }

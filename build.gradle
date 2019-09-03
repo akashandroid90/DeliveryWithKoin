@@ -51,7 +51,6 @@ ext {
     material = '1.0.0'
     mockito = '2.25.0'
     ext_junit = '1.1.1'
-//    mockk = '1.9.3.kotlin12'
     mockitowebserver = '3.12.3'
     mockito_kotlin = '2.1.0'
     databinding_compiler_version = '3.4.2'

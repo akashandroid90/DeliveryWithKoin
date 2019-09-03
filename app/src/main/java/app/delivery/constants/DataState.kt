@@ -6,5 +6,5 @@ package app.delivery.constants
 enum class DataState {
     LOADING,
     LOADED,
-    NETWORKERROR
+    ERROR
 }

@@ -6,7 +6,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
- * provides viewmodel and its factory instances
+ * provides view model and its factory instances
  */
 val viewModelModule = module {
     viewModel { DetailViewModel() }

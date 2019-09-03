@@ -30,7 +30,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(JUnit4::class)
-class ListlViewModelTest : ViewModelTest<ListViewModel>() {
+class ListViewModelTest : ViewModelTest<ListViewModel>() {
     @Mock
     lateinit var deliveriesDao: DeliveriesDao
     @Mock
@@ -81,14 +81,14 @@ class ListlViewModelTest : ViewModelTest<ListViewModel>() {
         data.mResult?.dataState?.value = state
         Assert.assertEquals(data.mResult?.dataState?.value, state)
 
-        state = DataState.NETWORKERROR
+        state = DataState.ERROR
         data.mResult?.dataState?.value = state
         Assert.assertEquals(data.mResult?.dataState?.value, state)
     }
 
     @Test
     fun testErrorMessage() {
-        val message = DataState.NETWORKERROR.name
+        val message = DataState.ERROR.name
         data.mResult?.errorMessage?.value = message
         Assert.assertEquals(data.mResult?.errorMessage?.value, message)
     }

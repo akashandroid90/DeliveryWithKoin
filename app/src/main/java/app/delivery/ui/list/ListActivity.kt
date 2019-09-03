@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
 class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>() {
-    val adapter: ListAdapter by inject()
+    private val adapter: ListAdapter by inject()
     private var snackBar: Snackbar? = null
 
     override fun getModel(): ListViewModel {
@@ -66,7 +66,7 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>() {
             binding.llProgress.visibility =
                 if (adapter.itemCount == 0 && it == DataState.LOADING) View.VISIBLE else View.GONE
             binding.llErrorScreen.visibility =
-                if (adapter.itemCount == 0 && it == DataState.NETWORKERROR) View.VISIBLE else View.GONE
+                if (adapter.itemCount == 0 && it == DataState.ERROR) View.VISIBLE else View.GONE
             binding.srlData.isEnabled = binding.llErrorScreen.visibility == View.GONE
         })
     }

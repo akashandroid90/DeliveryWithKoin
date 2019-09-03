@@ -31,14 +31,14 @@ fun locationData(view: TextView, location: DeliveriesData) {
 }
 
 @BindingAdapter("locationData")
-fun showmarkerOnmap(mapView: MapView, locationData: LocationData?) {
+fun showMarkerOnMap(mapView: MapView, locationData: LocationData?) {
     mapView.onCreate(Bundle())
     mapView.getMapAsync { googleMap ->
         googleMap.clear()
         if (locationData != null) {
-            val latlng = LatLng(locationData.lat, locationData.lng)
-            googleMap.addMarker(MarkerOptions().position(latlng).title(locationData.address))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 16f))
+            val latLng = LatLng(locationData.lat, locationData.lng)
+            googleMap.addMarker(MarkerOptions().position(latLng).title(locationData.address))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
         }
         mapView.onResume()
     }

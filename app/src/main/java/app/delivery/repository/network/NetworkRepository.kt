@@ -44,7 +44,7 @@ open class NetworkRepository(
                         if (body is ArrayList<DeliveriesData> && body.size > 0)
                             dbRepo.insertDeliveryData(isReset, body)
                     } else {
-                        result?.dataState?.value = DataState.NETWORKERROR
+                        result?.dataState?.value = DataState.ERROR
                         result?.errorMessage?.value = response.errorBody()?.string()
                     }
                     isRequestInProgress = false
@@ -52,12 +52,12 @@ open class NetworkRepository(
 
                 override fun onFailure(call: Call<ArrayList<DeliveriesData>>, t: Throwable) {
                     isRequestInProgress = false
-                    result?.dataState?.value = DataState.NETWORKERROR
+                    result?.dataState?.value = DataState.ERROR
                     result?.errorMessage?.value = (t.message as String)
                 }
             })
         } else {
-            result?.dataState?.value = DataState.NETWORKERROR
+            result?.dataState?.value = DataState.ERROR
             result?.errorMessage?.value = (context.getString(R.string.check_connection))
         }
     }

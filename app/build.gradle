@@ -102,13 +102,9 @@ dependencies {
 
     // Testing module
     //Mockito
-//    androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:' + mockito_kotlin
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:' + mockito_kotlin
-//    testImplementation 'io.mockk:mockk:' + mockk
-//    androidTestImplementation 'io.mockk:mockk-android:' + mockk
     testImplementation 'org.mockito:mockito-core:' + mockito
     androidTestImplementation 'org.mockito:mockito-android:' + mockito
-//    androidTestImplementation 'com.squareup.okhttp:mockwebserver:' + mockitowebserver
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:' + mockitowebserver
     testImplementation 'com.squareup.okhttp3:mockwebserver:' + mockitowebserver
     implementation 'androidx.test.espresso:espresso-idling-resource:' + espresso

@@ -9,7 +9,7 @@ import org.junit.Test
 import org.mockito.Mockito
 
 class NetworkConnectionUtilTest {
-    lateinit var networkUtil: NetworkConnectionUtil
+    private lateinit var networkUtil: NetworkConnectionUtil
     @Before
     fun setUp() {
         networkUtil = NetworkConnectionUtil()
@@ -23,7 +23,7 @@ class NetworkConnectionUtilTest {
     }
 
     @Test
-    fun isInternetAvailable_notconnected() {
+    fun isInternetAvailable_not_connected() {
         val context = Mockito.mock(Context::class.java)
         mockConnection(false, context)
         Assert.assertTrue(!networkUtil.isInternetAvailable(context))
@@ -36,7 +36,7 @@ class NetworkConnectionUtilTest {
         Assert.assertTrue(!networkUtil.isInternetAvailable(context))
     }
 
-    fun mockConnection(value: Boolean, context: Context) {
+    private fun mockConnection(value: Boolean, context: Context) {
         val appContext = Mockito.mock(Context::class.java)
         val connectionManager = Mockito.mock(ConnectivityManager::class.java)
         val networkInfo = Mockito.mock(NetworkInfo::class.java)

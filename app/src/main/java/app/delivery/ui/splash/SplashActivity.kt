@@ -9,8 +9,8 @@ import app.delivery.ui.list.ListActivity
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
-    val dbRepository: DbRepository by inject()
-    val handler: Handler by inject()
+    private val dbRepository: DbRepository by inject()
+    private val handler: Handler by inject()
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)

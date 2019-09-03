@@ -14,7 +14,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import java.util.concurrent.CountDownLatch
 
 abstract class AbstractBaseActivityTest<T : AppCompatActivity>(name: Class<T>) : KoinTest {
     @get:Rule
