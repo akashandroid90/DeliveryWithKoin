@@ -179,3 +179,11 @@ void set*(***);
 -keep class androidx.lifecycle.** { *; }
 
 -keep class app.delivery.** { *; }
+
+
+
+-dontusemixedcaseclassnames
+
+-dontskipnonpubliclibraryclasses
+
+-verbose
